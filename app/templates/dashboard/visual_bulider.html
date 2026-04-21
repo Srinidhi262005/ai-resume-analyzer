@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visual Resume Builder</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eefaf1;
+      padding: 2rem;
+      color: #2e7d32;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #builder {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(34, 139, 34, 0.2);
+    }
+
+    .section {
+      border: 1px solid #c8e6c9;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.2rem;
+      background: #f1f8e9;
+      cursor: move;
+    }
+
+    .section h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .section input, .section textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #a5d6a7;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    #exportBtn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+
+    #exportBtn:hover {
+      background: #388e3c;
+    }
+
+    #preview {
+      display: none;
+      margin-top: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Visual Resume Builder</h1>
+  <div id="builder">
+
+    <div class="section" draggable="true">
+      <h3>Name</h3>
+      <input type="text" placeholder="Your Full Name" />
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Email</h3>
+      <input type="email" placeholder="Email Address" />
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Professional Summary</h3>
+      <textarea rows="3" placeholder="Brief introduction..."></textarea>
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Skills</h3>
+      <textarea rows="3" placeholder="e.g., Python, JavaScript, SQL..."></textarea>
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Experience</h3>
+      <textarea rows="4" placeholder="Company, Role, Duration, Responsibilities..."></textarea>
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Education</h3>
+      <textarea rows="3" placeholder="Degree, Institution, Year..."></textarea>
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Certifications</h3>
+      <textarea rows="3" placeholder="Certifications, Issuer, Year..."></textarea>
+    </div>
+
+    <div class="section" draggable="true">
+      <h3>Projects</h3>
+      <textarea rows="4" placeholder="Project Title, Tools, Summary..."></textarea>
+    </div>
+
+    <button id="exportBtn">Export Resume as PDF</button>
+
+    <div id="preview"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    const builder = document.getElementById('builder');
+    let dragged = null;
+
+    document.querySelectorAll('.section').forEach(section => {
+      section.addEventListener('dragstart', e => {
+        dragged = section;
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      section.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+      });
+
+      section.addEventListener('drop', e => {
+        e.preventDefault();
+        if (dragged !== section) {
+          const all = Array.from(document.querySelectorAll('.section'));
+          const from = all.indexOf(dragged);
+          const to = all.indexOf(section);
+          if (from < to) {
+            builder.insertBefore(dragged, section.nextSibling);
+          } else {
+            builder.insertBefore(dragged, section);
+          }
+        }
+      });
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.text("Resume", 105, y, { align: 'center' });
+      y += 10;
+
+      document.querySelectorAll('.section').forEach(section => {
+        const title = section.querySelector('h3').innerText;
+        const input = section.querySelector('input, textarea');
+        const content = input ? input.value.trim() : '';
+
+        if (content) {
+          doc.setFontSize(13);
+          doc.setFont(undefined, 'bold');
+          doc.text(title, 20, y);
+          y += 6;
+
+          doc.setFontSize(11);
+          doc.setFont(undefined, 'normal');
+          const lines = doc.splitTextToSize(content, 170);
+          doc.text(lines, 20, y);
+          y += lines.length * 6 + 4;
+        }
+      });
+
+      doc.save("Resume.pdf");
+    });
+  </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-form" style="max-width: 800px;">
+  <h2>Grammar & Readability Checker</h2>
+  <p style="color: var(--text-muted); text-align: center;">Paste your resume text below to check for grammatical errors and readability issues.</p>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    
+    <label for="text_to_check">Resume Text:</label>
+    {{ form.text_to_check(rows=10, style="width: 100%; padding: 10px; background: rgba(15,23,42,0.6); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 20px;", placeholder="Paste your resume text here...") }}
+
+    <button type="submit" class="btn-primary" style="width: 100%;">Check Grammar</button>
+  </form>
+
+  {% if feedback %}
+    <div style="margin-top: 30px; padding: 20px; background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent-blue); border-radius: 8px;">
+      <h3 style="color: var(--accent-blue); margin-top: 0;">Feedback:</h3>
+      <ul style="padding-left: 20px;">
+        {% for issue in feedback %}
+          <li>{{ issue }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('dashboard.index') }}" style="color: var(--accent-blue); text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+</div>
+{% endblock %}

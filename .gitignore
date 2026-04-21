@@ -1,0 +1,33 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite Database
+*.sqlite3
+*.db
+instance/
+
+# Flask sessions
+.flask_session/
+
+# Uploads
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+
+# IDEs
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db

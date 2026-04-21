@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Analysis Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2E8B57;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-left: 5px solid #2E8B57;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        }
+        ul {
+            margin: 0 0 10px 20px;
+        }
+        strong {
+            color: #444;
+        }
+        p, ul {
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resume Analysis Results</h1>
+    <p><strong>Job Description:</strong> {{ jobdesc or "No job description provided" }}</p>
+
+    {% if results %}
+        {% for result in results %}
+        <div class="card">
+            <h2>{{ result.uploaded_filename or result.filename or "Resume" }}</h2>
+            <p><strong>Match Score:</strong> {{ result.match_score | default('N/A') }}%</p>
+            <p><strong>Skills Extracted:</strong> 
+                {% if result.skills_extracted %}
+                    {{ result.skills_extracted | join(', ') }}
+                {% else %}
+                    None found
+                {% endif %}
+            </p>
+
+            {% if result.job_suggestions %}
+            <p><strong>Job Suggestions:</strong></p>
+            <ul>
+                {% for job in result.job_suggestions %}
+                <li>{{ job }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if result.positive_feedback %}
+            <p><strong>Positive Feedback:</strong></p>
+            <ul>
+                {% for f in result.positive_feedback %}
+                <li>{{ f }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if result.constructive_feedback %}
+            <p><strong>Constructive Feedback:</strong></p>
+            <ul>
+                {% for s in result.constructive_feedback %}
+                <li>{{ s }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if result.template_suggestions %}
+            <p><strong>Format Suggestions:</strong></p>
+            <ul>
+                {% for ft in result.template_suggestions %}
+                <li>{{ ft }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if result.motivational_tips %}
+            <p><strong>Motivational Tips:</strong></p>
+            <ul>
+                {% for tip in result.motivational_tips %}
+                <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No analysis results to display.</p>
+    {% endif %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+

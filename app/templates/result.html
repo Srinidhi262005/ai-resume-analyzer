@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Resume Analysis Results | AI Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="mb-4 text-center">Resume Analysis Results</h2>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4>Match Score</h4>
+      <p class="fs-3 fw-bold text-success">{{ match_score }}%</p>
+    </div>
+  </div>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4>Job Suggestions</h4>
+      {% if job_suggestions %}
+        <ul>
+          {% for suggestion in job_suggestions %}
+            <li>{{ suggestion }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No job suggestions found.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4>Skills Extracted</h4>
+      {% if skills_extracted %}
+        <ul class="list-inline">
+          {% for skill in skills_extracted %}
+            <li class="list-inline-item badge bg-primary me-1 mb-1">{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No skills extracted.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row gy-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-success">Positive Feedback</h5>
+          <p class="card-text">{{ positive_feedback or 'No positive feedback available.' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-warning">Constructive Feedback</h5>
+          <p class="card-text">{{ constructive_feedback or 'No constructive feedback available.' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4 shadow-sm">
+    <div class="card-body">
+      <h4>Template Suggestions</h4>
+      {% if template_suggestions %}
+        <ul>
+          {% for template in template_suggestions %}
+            <li>{{ template }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No template suggestions.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card mt-4 shadow-sm">
+    <div class="card-body">
+      <h4>Motivational Tips</h4>
+      {% if motivational_tips %}
+        <ul>
+          {% for tip in motivational_tips %}
+            <li>{{ tip }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No motivational tips at this time.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="{{ url_for('main.upload') }}" class="btn btn-primary btn-lg">Analyze Another Resume</a>
+  </div>
+</div>
+{% endblock %}
+
+
+
+

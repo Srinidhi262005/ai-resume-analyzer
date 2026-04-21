@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Resume Analysis Result{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Resume Analysis Result</h2>
+  
+  <section class="mb-4">
+    <h4>Summary</h4>
+    <p>{{ summary }}</p>
+  </section>
+  
+  <section class="mb-4">
+    <h4>Match Score: <span class="badge bg-success">{{ match_score }}%</span></h4>
+  </section>
+  
+  <section class="mb-4">
+    <h4>Skills Extracted</h4>
+    {% if skills_extracted %}
+      <ul>
+        {% for skill in skills_extracted %}
+          <li>{{ skill }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No specific skills identified.</p>
+    {% endif %}
+  </section>
+  
+  <section class="mb-4">
+    <h4>Positive Feedback</h4>
+    <ul>
+      {% for item in positive_feedback %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  
+  <section class="mb-4">
+    <h4>Constructive Feedback</h4>
+    <ul>
+      {% for item in constructive_feedback %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  
+  <section class="mb-4">
+    <h4>Template Suggestions</h4>
+    <ul>
+      {% for tip in template_suggestions %}
+        <li>{{ tip }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  
+  <section class="mb-4">
+    <h4>Motivational Tips</h4>
+    <ul>
+      {% for tip in motivational_tips %}
+        <li>{{ tip }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <a href="{{ url_for('main.upload') }}" class="btn btn-primary mt-3">Analyze Another Resume</a>
+</div>
+{% endblock %}
+
+

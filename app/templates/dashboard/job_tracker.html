@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}Personalized Job Tracker{% endblock %}
+
+{% block content %}
+<style>
+  .job-tracker-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(44, 122, 123, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  h2, h3 {
+    color: #2c7a7b;
+    margin-bottom: 1rem;
+  }
+  form > div {
+    margin-bottom: 1rem;
+  }
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #20504f;
+  }
+  input.form-control, textarea.form-control, select.form-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+  }
+  input.form-control:focus, textarea.form-control:focus, select.form-select:focus {
+    border-color: #2c7a7b;
+    outline: none;
+    box-shadow: 0 0 5px #2c7a7b;
+  }
+  button.btn-primary {
+    background-color: #2c7a7b;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  button.btn-primary:hover {
+    background-color: #285e61;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+  }
+  th, td {
+    border: 1.5px solid #c5dbdb;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+  th {
+    background-color: #e0f0f0;
+    color: #20504f;
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) {
+    background-color: #f0f8f8;
+  }
+  a {
+    color: #2c7a7b;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  p.no-jobs {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #666;
+  }
+</style>
+
+<div class="job-tracker-container">
+  <h2>Personalized Job Tracker</h2>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <div>
+      {{ form.job_title.label }} {{ form.job_title(class="form-control") }}
+      {% for error in form.job_title.errors %}
+        <small style="color: red;">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.company_name.label }} {{ form.company_name(class="form-control") }}
+      {% for error in form.company_name.errors %}
+        <small style="color: red;">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.job_url.label }} {{ form.job_url(class="form-control") }}
+      {% for error in form.job_url.errors %}
+        <small style="color: red;">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.resume_version.label }} {{ form.resume_version(class="form-control", rows=3) }}
+      {% for error in form.resume_version.errors %}
+        <small style="color: red;">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.status.label }} {{ form.status(class="form-select") }}
+      {% for error in form.status.errors %}
+        <small style="color: red;">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.notes.label }} {{ form.notes(class="form-control", rows=2) }}
+      {% for error in form.notes.errors %}
+        <small style="color: red;">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+  </form>
+
+  <h3>Tracked Jobs</h3>
+  {% if jobs %}
+    <table>
+      <thead>
+        <tr>
+          <th>Job Title</th>
+          <th>Company</th>
+          <th>Job URL</th>
+          <th>Resume Version</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in jobs %}
+        <tr>
+          <td>{{ job.job_title }}</td>
+          <td>{{ job.company_name }}</td>
+          <td><a href="{{ job.job_url }}" target="_blank" rel="noopener noreferrer">Link</a></td>
+          <td>{{ job.resume_version }}</td>
+          <td>{{ job.status }}</td>
+          <td>{{ job.notes }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="no-jobs">No jobs tracked yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
+
+
+

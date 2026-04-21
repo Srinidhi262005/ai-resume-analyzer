@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Resume Builder{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <h2>Welcome, {{ current_user.name }}</h2>
+  <p class="intro-text">Here you can manage your resumes, track your activity, and more.</p>
+
+  <div class="dashboard-cards">
+    <div class="card">
+      <h3>📝 Create Resume</h3>
+      <p>Start building a new resume with smart suggestions.</p>
+      <a href="{{ url_for('resume.create') }}" class="button">Create Now</a>
+    </div>
+    <div class="card">
+      <h3>📂 My Resumes</h3>
+      <p>Access, edit, or delete your saved resumes.</p>
+      <a href="{{ url_for('resume.my_resumes') }}" class="button">View Resumes</a>
+    </div>
+    <div class="card">
+      <h3>📈 Resume Tips</h3>
+      <p>Read expert advice on resume writing.</p>
+      <a href="{{ url_for('tips.index') }}" class="button">Explore Tips</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+

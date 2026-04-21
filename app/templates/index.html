@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="hero">
+  <h1>Create a Job-Winning Resume Instantly</h1>
+  <p>Trusted by thousands. Boost your chances with AI-powered insights.</p>
+  <a href="#" class="btn-primary">Build My Resume</a>
+  <p class="note">No credit card required</p>
+</div>
+
+<div class="trust-badges">
+  <span style="font-size: 1.5rem; color: var(--text-muted); display: flex; gap: 30px; align-items: center;">
+    <span><i class="fa-brands fa-product-hunt"></i> ProductHunt</span>
+    <span><i class="fa-brands fa-y-combinator"></i> TechCrunch</span>
+    <span><i class="fa-brands fa-github"></i> GitHub</span>
+  </span>
+</div>
+
+<div class="features-section">
+  <h2>Everything You Need to Land the Job</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <h4>Upload & Analyze Resume</h4>
+      <a href="#">Try Now</a>
+    </div>
+    <div class="feature-card">
+      <h4>ATS Compatibility Checker</h4>
+      <a href="#">Try Now</a>
+    </div>
+    <div class="feature-card">
+      <h4>Career Path Predictor</h4>
+      <a href="#">Try Now</a>
+    </div>
+    <div class="feature-card">
+      <h4>Grammar & Readability Checker</h4>
+      <a href="#">Try Now</a>
+    </div>
+    <div class="feature-card">
+      <h4>LinkedIn Profile Analyzer</h4>
+      <a href="#">Try Now</a>
+    </div>
+    <div class="feature-card">
+      <h4>Interview Readiness Analyzer</h4>
+      <a href="#">Try Now</a>
+    </div>
+  </div>
+</div>
+
+<div class="why-section">
+  <h2>Why Use AI Resume Analyzer?</h2>
+  <ul>
+    <li>Optimized for Applicant Tracking Systems</li>
+    <li>Instant Feedback and Suggestions</li>
+    <li>Tailored Career Path Recommendations</li>
+    <li>Simple, Clean & Modern UI</li>
+  </ul>
+  <img src="{{ url_for('static', filename='images/ai_resume_home.png') }}" alt="Resume Preview" style="max-width: 80%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 40px;">
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

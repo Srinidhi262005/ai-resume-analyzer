@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-form" style="max-width: 800px;">
+  <h2>ATS Compatibility Checker</h2>
+  <p style="color: var(--text-muted); text-align: center;">Paste your resume text and job description to check for ATS compatibility issues.</p>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    
+    <label for="resume_text">Paste Resume Text:</label>
+    {{ form.resume_text(rows=10, style="width: 100%; padding: 10px; background: rgba(15,23,42,0.6); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 20px;", placeholder="Paste your full resume here...") }}
+
+    <label for="job_description_text">Paste Job Description (Optional):</label>
+    {{ form.job_description_text(rows=5, style="width: 100%; padding: 10px; background: rgba(15,23,42,0.6); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 20px;", placeholder="Paste job description here...") }}
+
+    <button type="submit" class="btn-primary" style="width: 100%;">Check ATS Score</button>
+  </form>
+
+  {% if results %}
+    <div style="margin-top: 30px; padding: 20px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px;">
+      <h3 style="color: #10b981; margin-top: 0;">ATS Score: {{ results['score'] }}%</h3>
+      
+      <h4 style="margin-bottom: 5px;">Missing Keywords:</h4>
+      <ul style="padding-left: 20px;">
+        {% for keyword in results['missing_keywords'] %}
+          <li>{{ keyword }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4 style="margin-bottom: 5px; margin-top: 15px;">Suggestions:</h4>
+      <ul style="padding-left: 20px;">
+        {% for note in results['notes'] %}
+          <li>{{ note }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('dashboard.index') }}" style="color: var(--accent-blue); text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+</div>
+{% endblock %}

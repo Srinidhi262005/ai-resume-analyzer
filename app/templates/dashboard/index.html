@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | AI Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Welcome Header Section -->
+    <div class="dashboard-header-glass">
+        <div class="dashboard-header-content">
+            <h1 class="welcome-title">Welcome back, <span class="text-gradient">{{ user.username }}</span> 👋</h1>
+            <p class="welcome-subtitle">Your AI-powered career growth hub is ready. What would you like to do today?</p>
+        </div>
+        <div class="dashboard-header-stats">
+            <div class="stat-badge">
+                <i class="fa-solid fa-bolt"></i> PRO Active
+            </div>
+        </div>
+    </div>
+
+    <!-- Modules Grid Section -->
+    <div class="dashboard-modules-grid">
+        
+        <!-- Module 1 -->
+        <a href="{{ url_for('main.upload_resume') }}" class="module-card card-primary">
+            <div class="module-icon"><i class="fa-solid fa-file-arrow-up"></i></div>
+            <h3 class="module-title">Upload Resume</h3>
+            <p class="module-desc">Start by uploading your latest resume to unlock all AI features.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 2 -->
+        <a href="{{ url_for('main.ats_check') }}" class="module-card card-purple">
+            <div class="module-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+            <h3 class="module-title">ATS Checker</h3>
+            <p class="module-desc">Analyze your resume against top Applicant Tracking Systems.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 3 -->
+        <a href="{{ url_for('main.career_path') }}" class="module-card card-orange">
+            <div class="module-icon"><i class="fa-solid fa-road"></i></div>
+            <h3 class="module-title">Career Predictor</h3>
+            <p class="module-desc">Discover tailored career paths based on your skills and experience.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 4 -->
+        <a href="{{ url_for('main.grammar_check') }}" class="module-card card-green">
+            <div class="module-icon"><i class="fa-solid fa-spell-check"></i></div>
+            <h3 class="module-title">Grammar Checker</h3>
+            <p class="module-desc">Enhance readability and eliminate errors from your profile.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 5 -->
+        <a href="{{ url_for('main.linkedin_analyzer') }}" class="module-card card-blue">
+            <div class="module-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+            <h3 class="module-title">LinkedIn Analyzer</h3>
+            <p class="module-desc">Optimize your LinkedIn profile to attract more recruiters.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 6 -->
+        <a href="{{ url_for('main.interview_readiness_route') }}" class="module-card card-red">
+            <div class="module-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+            <h3 class="module-title">Interview Readiness</h3>
+            <p class="module-desc">Get AI-driven interview questions based on your resume.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 7 -->
+        <a href="{{ url_for('main.job_tracker') }}" class="module-card card-teal">
+            <div class="module-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <h3 class="module-title">Job Tracker</h3>
+            <p class="module-desc">Keep track of your job applications and statuses seamlessly.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 8 -->
+        <a href="{{ url_for('main.resume_rewriter_route') }}" class="module-card card-pink">
+            <div class="module-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3 class="module-title">Resume Rewriter</h3>
+            <p class="module-desc">Let AI rewrite and polish your bullet points for maximum impact.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+        <!-- Module 9 -->
+        <a href="{{ url_for('main.visual_resume') }}" class="module-card card-yellow">
+            <div class="module-icon"><i class="fa-solid fa-palette"></i></div>
+            <h3 class="module-title">Visual Builder</h3>
+            <p class="module-desc">Generate stunning, visually appealing resumes instantly.</p>
+            <div class="module-action"><i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

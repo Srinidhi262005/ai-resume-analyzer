@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Upload Resume | AI Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="auth-form" style="max-width: 800px;">
+  <h2>Resume Upload & Job Description</h2>
+  <p style="color: var(--text-muted); text-align: center;">Upload your resume and an optional job description to get started.</p>
+
+  <form method="POST" action="{{ url_for('main.upload_resume') }}" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <!-- Resume Files Upload -->
+    <div style="margin-bottom: 20px;">
+      <label for="{{ form.resume_files.id }}">{{ form.resume_files.label.text }}</label>
+      {{ form.resume_files(style="width: 100%; padding: 10px; background: rgba(15,23,42,0.6); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 5px;") }}
+      {% if form.resume_files.errors %}
+        {% for error in form.resume_files.errors %}
+          <div style="color: var(--accent-red); font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+      <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Upload one or more resumes (PDF or DOCX).</div>
+    </div>
+
+    <!-- Job Description File Upload -->
+    <div style="margin-bottom: 20px;">
+      <label for="{{ form.jobdesc_file.id }}">{{ form.jobdesc_file.label.text }}</label>
+      {{ form.jobdesc_file(style="width: 100%; padding: 10px; background: rgba(15,23,42,0.6); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 5px;") }}
+      {% if form.jobdesc_file.errors %}
+        {% for error in form.jobdesc_file.errors %}
+          <div style="color: var(--accent-red); font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+      <div style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Optional: Upload a job description file (PDF or DOCX).</div>
+    </div>
+
+    <!-- OR Paste Job Description Text -->
+    <div style="margin-bottom: 20px;">
+      <label for="{{ form.jobdesc_text.id }}">{{ form.jobdesc_text.label.text }}</label>
+      {{ form.jobdesc_text(rows="5", style="width: 100%; padding: 10px; background: rgba(15,23,42,0.6); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 5px;", placeholder="Or paste the job description directly here...") }}
+      {% if form.jobdesc_text.errors %}
+        {% for error in form.jobdesc_text.errors %}
+          <div style="color: var(--accent-red); font-size: 0.85rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn-primary" style="width: 100%;">{{ form.submit.label.text }}</button>
+  </form>
+
+  {% if results %}
+    <div style="margin-top: 30px; padding: 20px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px;">
+      <h3 style="color: #10b981; margin-top: 0;">Analysis Results:</h3>
+      
+      {% if results['score'] %}
+      <h4 style="margin-bottom: 5px;">ATS Match Score: {{ results['score'] }}%</h4>
+      {% endif %}
+
+      <h4 style="margin-bottom: 5px; margin-top: 15px;">Extracted Skills:</h4>
+      <ul style="padding-left: 20px;">
+        {% for skill in results['skills'] %}
+          <li>{{ skill | capitalize }}</li>
+        {% endfor %}
+      </ul>
+      
+      {% if results['notes'] %}
+      <h4 style="margin-bottom: 5px; margin-top: 15px;">Suggestions:</h4>
+      <ul style="padding-left: 20px;">
+        {% for note in results['notes'] %}
+          <li>{{ note }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('dashboard.index') }}" style="color: var(--accent-blue); text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+</div>
+{% endblock %}
